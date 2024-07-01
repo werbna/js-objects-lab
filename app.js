@@ -18,6 +18,8 @@ const game = {
     { name: "rare candy", quantity: 99 },
   ],
 };
+
+
 //This is Exercise 1
 
 // console.dir(pokemon, { maxArrayLength: null })
@@ -36,7 +38,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 Solve Exercise 3 here:
 */
 game.difficulty = "easy";
-console.log(game);
+// console.log(game);
 
 /*
 Exercise 4
@@ -48,7 +50,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 Solve Exercise 4 here:
 */
 game.party.push(pokemon.find((pokemon) => pokemon.name === "Pikachu"));
-console.log(game.party);
+// console.log(game.party);
 
 /*
 Exercise 5
@@ -59,17 +61,17 @@ Exercise 5
 Solve Exercise 5 here:
 */
 const ghoType = pokemon.filter((pokemon) => pokemon.type === "ghost");
-console.log(ghoType);
+// console.log(ghoType);
 game.party.push(pokemon.find((pokemon) => pokemon.name === "Gengar"));
-console.log(game.party);
+// console.log(game.party);
 const draType = pokemon.filter((pokemon) => pokemon.type === "dragon");
-console.log(draType);
+// console.log(draType);
 game.party.push(pokemon.find((pokemon) => pokemon.name === "Dragonite"));
-console.log(game.party);
+// console.log(game.party);
 const watType = pokemon.filter((pokemon) => pokemon.type === "water");
-console.log(watType);
+// console.log(watType);
 game.party.push(pokemon.find((pokemon) => pokemon.name === "Gyarados"));
-console.log(game.party);
+//console.log(game.party);
 
 /*
 Exercise 6
@@ -110,7 +112,7 @@ if (pikachu === 0) {
   game.party[pikachu] = raichu;
 }
 
-console.log(game.party);
+//console.log(game.party);
 
 /*
 Exercise 8
@@ -124,7 +126,7 @@ game.party.forEach((pokemon) => {
   myBabys.push(pokemon.name);
 });
 
-console.log(myBabys);
+//console.log(myBabys);
 
 /*
 Exercise 9
@@ -135,8 +137,8 @@ Exercise 9
 Solve Exercise 9 here:
 */
 
-const starters = pokemon.filter((poke) => poke.starter === true);
-starters.forEach(starter => console.log(starter.name));
+// const starters = pokemon.filter((poke) => poke.starter === true);
+// starters.forEach(starter => console.log(starter.name));
 
 /*
 Exercise 10
@@ -154,7 +156,7 @@ game.catchPokemon = function(pokemonObj) {
   game.party.push(pokemonObj)
 };
 game.catchPokemon(pokemon[150]);
-console.log(game.party)
+//console.log(game.party)
 
 /*
 Exercise 11
@@ -175,7 +177,7 @@ game.catchPokemon = function(pokemonObj) {
 }
 
 game.catchPokemon(pokemon[149]);
-console.log(game.party, game.items)
+//console.log(game.party, game.items)
 
 /*
 Exercise 12
@@ -191,7 +193,7 @@ game.gyms.forEach((gym) => {
   }
 });
 
-console.log(game.gyms)
+//console.log(game.gyms)
 
 /*
 Exercise 13
@@ -240,7 +242,7 @@ game.tallyGyms= function() {
   return tally;
 };
 
-console.log(game.tallyGyms());
+//console.log(game.tallyGyms());
 
 /*
 Exercise 14
@@ -261,7 +263,7 @@ game.partyCount = function() {
   return count;
 }
 
-console.log(`Party count is : `, game.partyCount());
+//console.log(`Party count is : `, game.partyCount());
 
 /*
 Exercise 15
@@ -276,7 +278,7 @@ game.gyms.forEach((gym) => {
   }
 });
 
-console.log(game.gyms)
+//console.log(game.gyms)
 /*
 Exercise 16
 1. Log the entire `game` object to the console. Take a moment to review the changes you've made throughout the exercises.
@@ -285,7 +287,7 @@ Exercise 16
 Solve Exercise 16 here:
 */
 
-console.log(game)
+//console.log(game)
 
 /*
 Exercise 17
@@ -295,3 +297,139 @@ Exercise 17
 
 Solve Exercise 17 here:
 */
+
+game.party.sort((a,b) => b.hp - a.hp);
+//console.log(game.party);
+
+/*
+Exercise 18
+Add a new property to the `game` object called `collection` and initialize its value to an empty array.
+
+Copy the `catchPokemon` method you wrote in Exercise Twelve and paste it below. Modify it so that:
+  - Ensure that no more than six Pokemon can be in the party at any time. 
+    Excess Pokemon should be placed in the `game.collection` array.
+  - It's up to you how to distribute Pokemon in a situation where more than six 
+    would be placed into the `game.party` array.
+
+Again, for this exercise, it's okay to have a negative number of pokeballs.
+
+After updating the method, use it by calling it and passing in a pokemon object of your choice from the `pokemon` data to catch it.
+
+Also, log the `game.items` array to confirm that the pokeball quantity is being decremented.
+
+Solve Exercise 18 here:
+*/
+
+game.collection = [];
+
+game.catchPokemon = function(pokemonObj) {
+  if (this.party.length < 6) {
+    this.party.push(pokemonObj);
+  } else {
+    this.collection.push(pokemonObj);
+  }
+  this.items[1].quantity--;
+};
+//console.log(game.items)
+function RandomNumber() {
+  return Math.floor(Math.random() * 151);
+}
+const randomIdx = RandomNumber();
+
+game.catchPokemon(pokemon[randomIdx]);
+//console.log(game.collection)
+console.log(game.items)
+
+/*
+Exercise 19
+Copy the `catchPokemon` method that you just wrote above, and paste it below. The time has come to make it so that we cannot catch a Pokemon when we do not have any pokeballs to catch it with. 
+
+Modify the method so that if there are no pokeballs a message will be displayed that there are not enough pokeballs to catch the desired Pokemon.
+
+Also, ensure that the Pokemon isn't added to the `game.party` or the `game.collection`.
+
+Solve Exercise 19 here:
+*/
+
+function catchPokemon(pokemonObj) {
+  if (game.items[1].quantity > 0) {
+    if (game.party.length < 6) {
+      game.party.push(pokemonObj);
+    } else {
+      game.collection.push(pokemonObj);
+    }
+    game.items[1].quantity--;
+  } else {
+    console.log("There are no Poké Balls");
+  }
+}
+
+/*
+Exercise 20
+Copy the `catchPokemon` method that you just wrote above, and paste it below. Modify is so that you can just pass in the name of a Pokemon instead of an entire object, and the method will look up the Pokemon from the data set for you.
+
+The string passed in should be allowed to be any case (for example, if the string 'PiKacHU' is passed to the function, it should match to 'Pikachu' in the data set). 
+
+If there is not a match, then return a string noting that the selected Pokemon does not exist. Ensure you do not decrement the pokeball count if an invalid Pokemon name is passed in, and also ensure that the Pokemon isn't added to the `game.party` or the `game.collection`.
+
+Solve Exercise 20 here:
+*/
+
+game.catchPokemon = function(pokemonName) {
+  const pokemonObj = pokemon.find(p => p.name.toLowerCase() === pokemonName.toLowerCase());
+  if (!pokemonObj) {
+    return `${pokemonName} does not exist`;
+  }
+  if (game.items[1].quantity > 0) {
+    if (game.party.length < 6) {
+      game.party.push(pokemonObj);
+    } else {
+      game.collection.push(pokemonObj);
+    }
+    game.items[1].quantity--;
+  } else {
+    console.log("There are no Poké Balls");
+  }
+  return `${pokemonObj.name} has been caught!`
+};
+
+console.log(game.catchPokemon('GodZilla')); // Should return "godzilla does not exist"
+console.log(game.catchPokemon('piKaChu')); // Should add Pikachu to the party or collection
+
+/*
+Exercise 21
+Dynamically construct an object with the existing `pokemon` data sorted by the different pokemon types. The object will have this structure:
+
+{
+  grass: [
+    { number: 1, name: 'Bulbasaur', type: 'grass', hp: 45, starter: true },
+    { number: 2, name: 'Ivysaur', type: 'grass', hp: 60, starter: false },
+    { number: 3, name: 'Venusaur', type: 'grass', hp: 80, starter: false },
+    * more grass type Pokemon objects...
+  ],
+  fire: [
+    { number: 4, name: 'Charmander', type: 'fire', hp: 39, starter: true },
+    * more fire type Pokemon objects...
+  ],
+  water: [
+    * water type Pokemon objects...
+  ],
+  * etc... until there is an array for every Pokemon type!
+}
+
+Log the object when it's constructed.
+
+Solve Exercise 21 here:
+*/
+
+const groupedPokemon = {};
+pokemon.forEach(poke => {
+  const {type} = poke;
+  if (!groupedPokemon[type]) {
+    groupedPokemon[type] = [];
+  }
+  groupedPokemon[type].push(poke);
+});
+
+console.dir(groupedPokemon)
+console.table(groupedPokemon)
